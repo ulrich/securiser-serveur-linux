@@ -1,0 +1,25 @@
+= Introduction
+
+Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux.
+
+== Changer et renforcer le mot de passe ROOT
+
+L'utilisateur ROOT étant le super utilisateur de votre système, il a tout les droits. Donc, la première à chose faire est de changer son mot de passe en utilisant idéalement un générateur de mot de passe.
+
+  Commandes utiles :
+    password root
+
+  Ressources :
+    https://strongpasswordgenerator.com/
+
+== Créer un utilisateur courant
+
+Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser le compte ROOT dans le cadre d'une utilisation courante et de se créer un compte disposants des droits standards.
+
+  Commandes utiles :
+    adduser moncompte
+    passwd moncompte
+    chage –M 60 –m 7 –w 7 moncompte
+
+    Ressources :
+      http://unixhelp.ed.ac.uk/CGI/man-cgi?chage+1
