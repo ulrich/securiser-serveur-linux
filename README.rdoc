@@ -26,7 +26,7 @@ Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser
 
 == Désactiver l'accès SSH à ROOT
 
-Il est préférable d'utiliser le protocole SSH en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin. Mais SSH étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaque, dit par dictionnaire. Il faut donc impérativement désactiver la permission de login par ROOT en SSH.
+Il est préférable d'utiliser le protocole SSH en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin. Mais SSH étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaques, dites par dictionnaire. Il faut donc impérativement désactiver la permission de login par ROOT en SSH.
 
   Commandes utiles :
     sudo vi /etc/ssh/sshd_config
