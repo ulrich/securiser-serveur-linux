@@ -23,3 +23,16 @@ Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser
 
   Ressources :
       http://unixhelp.ed.ac.uk/CGI/man-cgi?chage+1
+
+== Désactiver l'accès SSH à ROOT
+
+Il est préférable d'utiliser le protocole SSH en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin. Mais SSH étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaque, dit par dictionnaire. Il faut donc impérativement désactiver la permission de login par ROOT en SSH.
+
+  Commandes utiles :
+    sudo vi /etc/ssh/sshd_config
+    Chercher et remplacer la valeur de la clé PermitRootLogin par no
+    sudo service sshd restart
+
+  Ressources :
+      Commande d'analyse de port nmap :
+        nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
