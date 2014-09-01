@@ -1,6 +1,6 @@
 = Introduction
 
-Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux.
+Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux. Cette liste est ouverte à tout le monde, donc n'hésitez pas à y contribuer.
 
 == Changer et renforcer le mot de passe ROOT
 
