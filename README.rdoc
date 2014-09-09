@@ -12,7 +12,7 @@ L'utilisateur root étant le super utilisateur du système, il a tous les droits
     "password root"
 
   Ressources :
-    https://strongpasswordgenerator.com/
+    http://goo.gl/jenkU5
 
 == Créer un utilisateur avec des droits standards
 
@@ -24,7 +24,7 @@ Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser
     "chage –M 60 –m 7 –w 7 moncompte"
 
   Ressources :
-      http://unixhelp.ed.ac.uk/CGI/man-cgi?chage+1
+      http://goo.gl/cNUqYJ
 
 == Tester la robustesse de son mot de passe
 
@@ -34,7 +34,7 @@ Il est possible d'utiliser une commande permettant de tester la qualité de son 
     "echo mOnP@sswOrd | cracklib-check"
 
   Ressources :
-    https://packages.debian.org/stable/libs/libcrack2
+    http://goo.gl/32JPLJ
 
 == Désactiver l'accès ssh à root
 
@@ -51,7 +51,7 @@ Il est préférable d'utiliser le protocole ssh en lieu et place d'autres protoc
 Le port-knocking est une parade permettant à une machine de cacher un canal de communication comme par exemple ssh, au vu et au su de tout le monde, à l'exception de ceux qui connaissent le code permettant de le débloquer. Généralement utilisée en conjonction avec un firewall cette méthode est ralitevement simple à intégrer et assez efficace pour déjouer une attaque en brute force.
 
   Ressources :
-    https://www.digitalocean.com/community/tutorials/how-to-use-port-knocking-to-hide-your-ssh-daemon-from-attackers-on-ubuntu
+    http://goo.gl/9xiYNI
 
 == Garder son système propre
 
@@ -63,11 +63,11 @@ Le but est de s'assurer que son OS est sain à la fois au niveau du Kernel et Pa
     "sudo apt-get clean"
 
   Ressources :
-    http://www.debian.org/doc/manuals/debian-faq/ch-uptodate.fr.html
+    http://goo.gl/pwb3mZ
 
 == Garer un oeil sur ses logs
 
 L'analyse quotidienne de logs est un mal nécessaire pour avoir une idée précise de l'état de son système. En effet, il ne passe pas une journée ou votre serveur ne subit pas d'attaque directe et franche de le part de mystérieuses adresse IP et surtout si ce celui-ci est visible de l'extérieur. Cette tâche étant tout aussi ingrate que complexe, il existe des outils qui automatise cela pour vous.
 
   Ressources :
-    http://sourceforge.net/projects/logwatch/files/
+    http://goo.gl/nHnGA7
