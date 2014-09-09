@@ -1,49 +1,73 @@
 = Introduction
 
-Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux. Les exemples donnés dans cette page correspondent le plus souvent à la distribution Ubuntu. Cette liste est ouverte à tout le monde, donc n'hésitez pas à y contribuer.
+Le but de cette page est de construire une liste de tâches à prendre en considération lorsque l'on administre son serveur Linux. Les exemples donnés dans cette page correspondent le plus souvent à la distribution Ubuntu. Cette liste est ouverte à toute et à tous, donc n'hésitez pas à y contribuer et surtout à la faire évoluer.
 
-== 1. Changer et renforcer le mot de passe root
+== Changer le mot de passe root
 
-L'utilisateur root étant le super utilisateur de votre système, il a tout les droits. Donc, en cas de compromission de son compte, plusieurs possibilités s'offrent à l'attaquant : détruire purement et simplement votre système ; se servir du serveur comme passerelle d'attaque ; héberger un botnet ; stocker et servir des données illicites... Ainsi, la première à chose faire est de changer le mot de passe root en utilisant idéalement un générateur de mot de passe.
+L'utilisateur root étant le super utilisateur du système, il a tous les droits. Donc, en cas de compromission de son compte par un attaquant, plusieurs possibilités s'offrent à lui : détruire purement et simplement votre système ; se servir du serveur comme passerelle d'attaque vers d'autres cibles ; héberger un botnet ; stocker et servir des données illicites... Donc, la première à chose faire est de changer le mot de passe root en utilisant idéalement un générateur de mot de passe.
 
-  Commande utile :
-    password root
+  Commandes utiles :
+    "pwgen -y 16"
+    "apg -m 16 -t -M SNCL"
+    "password root"
 
-  Ressource :
-    Voir le site : https://strongpasswordgenerator.com/
+  Ressources :
+    https://strongpasswordgenerator.com/
 
-== 2. Créer un utilisateur courant
+== Créer un utilisateur avec des droits standards
 
 Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser le compte root dans le cadre d'une utilisation courante, mais de se créer un compte disposants des droits standards.
 
   Commandes utiles :
-    adduser moncompte
-    passwd moncompte
-    chage –M 60 –m 7 –w 7 moncompte
+    "adduser moncompte"
+    "passwd moncompte"
+    "chage –M 60 –m 7 –w 7 moncompte"
 
-  Ressource :
+  Ressources :
       http://unixhelp.ed.ac.uk/CGI/man-cgi?chage+1
 
-== 3. Désactiver l'accès ssh à root
+== Tester la robustesse de son mot de passe
+
+Il est possible d'utiliser une commande permettant de tester la qualité de son mot de passe, cette commande qui est déjà probablement installée sur votre système est cracklib-check. Son but est de prendre en entrée standard un mot de passe et d'indiquer à l'utilisateur, si ce dernier est sensible à différentes attaques.
+
+  Commandes utiles :
+    "echo mOnP@sswOrd | cracklib-check"
+
+  Ressources :
+    https://packages.debian.org/stable/libs/libcrack2
+
+== Désactiver l'accès ssh à root
 
 Il est préférable d'utiliser le protocole ssh en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin par exemple. Mais ssh étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaques, dites par dictionnaire. Il faut donc impérativement interdire la possibilité à root de se connecter directement par ssh.
 
   Commandes utiles :
-    sudo vi /etc/ssh/sshd_config
-    Chercher et remplacer la valeur de la clé PermitRootLogin par no
-    sudo service sshd restart
+    "nmap -p22 --open -PN -sV -oG ssh_hosts monserveur"
+    "sudo vi /etc/ssh/sshd_config"
+    Chercher et remplacer la valeur de la clé "PermitRootLogin" par "no"
+    "sudo service sshd restart"
 
-  Ressource :
-      Analyse de port avec nmap : nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
+== Utiliser le port-knocking pour ssh
 
-== 4. Garder son système propre
+Le port-knocking est une parade permettant à une machine de cacher un canal de communication comme par exemple ssh, au vu et au su de tout le monde, à l'exception de ceux qui connaissent le code permettant de le débloquer. Généralement utilisée en conjonction avec un firewall cette méthode est ralitevement simple à intégrer et assez efficace pour déjouer une attaque en brute force.
+
+  Ressources :
+    https://www.digitalocean.com/community/tutorials/how-to-use-port-knocking-to-hide-your-ssh-daemon-from-attackers-on-ubuntu
+
+== Garder son système propre
 
 Le but est de s'assurer que son OS est sain à la fois au niveau du Kernel et Packages. En effet, un système up-to-date se montrera plus robuste face à des campagnes d'attaques standards, voir avancées. Il faut donc s'astreindre à mettre à jours quotidiennement les librairies et programmes nécessaires à la bonne marche de votre système.
 
   Commandes utiles :
-    sudo vi /etc/ssh/sshd_config
-    Chercher et remplacer la valeur de la clé PermitRootLogin par no
-    sudo service sshd restart
+    "sudo apt-get update"
+    "sudo apt-get upgrade"
+    "sudo apt-get clean"
 
-  Ressource :
-      Analyse de port avec nmap : nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
+  Ressources :
+    http://www.debian.org/doc/manuals/debian-faq/ch-uptodate.fr.html
+
+== Garer un oeil sur ses logs
+
+L'analyse quotidienne de logs est un mal nécessaire pour avoir une idée précise de l'état de son système. En effet, il ne passe pas une journée ou votre serveur ne subit pas d'attaque directe et franche de le part de mystérieuses adresse IP et surtout si ce celui-ci est visible de l'extérieur. Cette tâche étant tout aussi ingrate que complexe, il existe des outils qui automatise cela pour vous.
+
+  Ressources :
+    http://sourceforge.net/projects/logwatch/files/
