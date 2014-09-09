@@ -1,38 +1,49 @@
 = Introduction
 
-Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux. Cette liste est ouverte à tout le monde, donc n'hésitez pas à y contribuer.
+Le but de cette page est de construire une liste de tâches triées par ordre d'importance à prendre en compte pour sécuriser son serveur Linux. Les exemples donnés dans cette page correspondent le plus souvent à la distribution Ubuntu. Cette liste est ouverte à tout le monde, donc n'hésitez pas à y contribuer.
 
-== Changer et renforcer le mot de passe ROOT
+== 1. Changer et renforcer le mot de passe root
 
-L'utilisateur ROOT étant le super utilisateur de votre système, il a tout les droits. Donc, la première à chose faire est de changer son mot de passe en utilisant idéalement un générateur de mot de passe.
+L'utilisateur root étant le super utilisateur de votre système, il a tout les droits. Donc, en cas de compromission de son compte, plusieurs possibilités s'offrent à l'attaquant : détruire purement et simplement votre système ; se servir du serveur comme passerelle d'attaque ; héberger un botnet ; stocker et servir des données illicites... Ainsi, la première à chose faire est de changer le mot de passe root en utilisant idéalement un générateur de mot de passe.
 
-  Commandes utiles :
+  Commande utile :
     password root
 
-  Ressources :
-    https://strongpasswordgenerator.com/
+  Ressource :
+    Voir le site : https://strongpasswordgenerator.com/
 
-== Créer un utilisateur courant
+== 2. Créer un utilisateur courant
 
-Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser le compte ROOT dans le cadre d'une utilisation courante et de se créer un compte disposants des droits standards.
+Afin d'éviter une mauvaise manipulation, il est préférable de ne pas utiliser le compte root dans le cadre d'une utilisation courante, mais de se créer un compte disposants des droits standards.
 
   Commandes utiles :
     adduser moncompte
     passwd moncompte
     chage –M 60 –m 7 –w 7 moncompte
 
-  Ressources :
+  Ressource :
       http://unixhelp.ed.ac.uk/CGI/man-cgi?chage+1
 
-== Désactiver l'accès SSH à ROOT
+== 3. Désactiver l'accès ssh à root
 
-Il est préférable d'utiliser le protocole SSH en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin. Mais SSH étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaques, dites par dictionnaire. Il faut donc impérativement désactiver la permission de login par ROOT en SSH.
+Il est préférable d'utiliser le protocole ssh en lieu et place d'autres protocoles moins sécurisés, comme telnet ou rlogin par exemple. Mais ssh étant un protocole ouvert sur le port 22, il est systématiquement la cible d'attaques, dites par dictionnaire. Il faut donc impérativement interdire la possibilité à root de se connecter directement par ssh.
 
   Commandes utiles :
     sudo vi /etc/ssh/sshd_config
     Chercher et remplacer la valeur de la clé PermitRootLogin par no
     sudo service sshd restart
 
-  Ressources :
-      Commande d'analyse de port nmap :
-        nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
+  Ressource :
+      Analyse de port avec nmap : nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
+
+== 4. Garder son système propre
+
+Le but est de s'assurer que son OS est sain à la fois au niveau du Kernel et Packages. En effet, un système up-to-date se montrera plus robuste face à des campagnes d'attaques standards, voir avancées. Il faut donc s'astreindre à mettre à jours quotidiennement les librairies et programmes nécessaires à la bonne marche de votre système.
+
+  Commandes utiles :
+    sudo vi /etc/ssh/sshd_config
+    Chercher et remplacer la valeur de la clé PermitRootLogin par no
+    sudo service sshd restart
+
+  Ressource :
+      Analyse de port avec nmap : nmap -p22 --open -PN -sV -oG ssh_hosts monserveur
